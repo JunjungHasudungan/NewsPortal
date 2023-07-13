@@ -64,7 +64,8 @@ class PostController extends Controller
     {
         $post->update($request->validated());
 
-        return response()->json('data post updated..');
+        return PostResource::collection($post);
+        // return response()->json('data post updated..');
     }
 
     /**
@@ -72,6 +73,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return response()->noContent();
     }
 }
