@@ -19,11 +19,23 @@ class PostRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'title' => ['required'],
-            'description'   => ['required']
+            'title'         => ['required', 'min:4', 'max:50'],
+            'description'   => ['required' , 'min:10', 'max:50']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required'        => 'Kolom Judul Wajib diisi..',
+            'title.min'             => 'Judul min 4 karakter..',
+            'title.mex'             => 'Judul maks 50 Karakter',
+            'description.required'  => 'Kolom Keterangan Wajib diisi..',
+            'description.min'       => 'Keterangan Min 10 Karakter..',
+            'description.max'       => 'Keterangan Maks 50 Karakter...'
         ];
     }
 }
