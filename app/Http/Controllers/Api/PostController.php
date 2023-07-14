@@ -8,7 +8,10 @@ use App\Http\Requests\{
     PostRequest,
     UpdatePostRequest
 };
-use App\Http\Resources\PostResource;
+use App\Http\Resources\{
+    PostCollection,
+    PostResource,
+};
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -18,7 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-       return PostResource::collection(Post::all());
+       return new PostCollection(Post::all());
     }
 
     /**
@@ -46,7 +49,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return new PostResource($post);
     }
 
     /**
@@ -64,7 +67,7 @@ class PostController extends Controller
     {
         $post->update($request->validated());
 
-        return PostResource::collection($post);
+        return new PostResource($post);
         // return response()->json('data post updated..');
     }
 
